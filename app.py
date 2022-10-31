@@ -43,6 +43,38 @@ pygame.display.set_caption("Fast Typing Game")
 
 font = pygame.font.SysFont("Serif", 32)
 
+def difficulty(ask, win, font):
+    while ask:
+        for event in pygame.event.get():
+            diff = "Select difficulty:"
+            beg = "Beginner: press 'a'"
+            ama = "Amateur: press 'b'"
+            prof = "Professional: press 'c'"
+            diff = font.render(diff, True, (255,255,255))
+            win.blit(diff,(5,5))
+            beg = font.render(beg, True, (255,255,255))
+            win.blit(beg,(5,45))
+            ama = font.render(ama, True, (255,255,255))
+            win.blit(ama,(5,90))
+            prof = font.render(prof, True, (255,255,255))
+            win.blit(prof,(5,135))
+            pygame.display.update()
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            elif event.type == pygame.KEYDOWN:
+                if pygame.key.name(event.key)== 'a':
+                    speed = 0.003
+                    ask = False
+                elif pygame.key.name(event.key)== 'b':
+                    speed = 0.006
+                    ask = False
+                elif pygame.key.name(event.key)== 'c':
+                    speed = 0.09
+                    ask = False
+                else:
+                    ask = True
+
 new_word()
 ask = True
 while True:
@@ -69,7 +101,7 @@ while True:
                     speed = 0.003
                     ask = False
                 elif pygame.key.name(event.key)== 'b':
-                    speed = 0.008
+                    speed = 0.006
                     ask = False
                 elif pygame.key.name(event.key)== 'c':
                     speed = 0.03
@@ -116,35 +148,7 @@ while True:
         if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
             win.fill((0,0,0))
             ask = True
-            while ask:
-                for event in pygame.event.get():
-                    diff = "Select difficulty:"
-                    beg = "Beginner: press 'a'"
-                    ama = "Amateur: press 'b'"
-                    prof = "Professional: press 'c'"
-                    diff = font.render(diff, True, (255,255,255))
-                    win.blit(diff,(5,5))
-                    beg = font.render(beg, True, (255,255,255))
-                    win.blit(beg,(5,45))
-                    ama = font.render(ama, True, (255,255,255))
-                    win.blit(ama,(5,90))
-                    prof = font.render(prof, True, (255,255,255))
-                    win.blit(prof,(5,135))
-                    pygame.display.update()
-                    if event.type == pygame.QUIT:
-                        pygame.quit()
-                        quit()
-                    elif event.type == pygame.KEYDOWN:
-                        if pygame.key.name(event.key)== 'a':
-                            speed = 0.003
-                            ask = False
-                        elif pygame.key.name(event.key)== 'b':
-                            speed = 0.008
-                            ask = False
-                        elif pygame.key.name(event.key)== 'c':
-                            speed = 0.03
-                            ask = False
-                        else:
-                            ask = True
+            difficulty(ask, win, font)
             point = 0
             new_word()
+
